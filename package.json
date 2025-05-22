@@ -1,0 +1,13 @@
+{
+  "name": "blip-chat-gameplay",
+  "version": "1.0.0",
+  "description": "Blip Chat Gameplay is a web-based demo that integrates the **Blip Chat Widget** with **OpenAI's GPT-4 API** to simulate an interactive, real-time conversation between a consumer and a Intelligent Contact. This project allows users to customize the conversation context by providing their own API keys and a system prompt.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
