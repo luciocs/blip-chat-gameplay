@@ -155,7 +155,20 @@ You are a consumer texting a support agent at ChargeUp, a eco-friendly charger b
             messages: history
           })
         });
+        if (!response.ok) {
+          let errorText = "";
+          try {
+            const errData = await response.json();
+            errorText = errData.error && errData.error.message ? errData.error.message : JSON.stringify(errData);
+          } catch {
+            errorText = response.statusText;
+          }
+          throw new Error(`OpenAI API error: ${errorText}`);
+        }
         const data = await response.json();
+        if (!data.choices || !data.choices[0] || !data.choices[0].message) {
+          throw new Error("Unexpected response from OpenAI API");
+        }
         return data.choices[0].message.content.trim();
       }
 
@@ -244,19 +257,23 @@ You are a consumer texting a support agent at ChargeUp, a eco-friendly charger b
           return;
         }
         conversationHistory.push({ role: "system", content: systemPrompt });
-        let gptMessage = await getGPTResponse(conversationHistory, openAiApiKey);
-        conversationHistory.push({ role: "assistant", content: gptMessage });
-        // Send GPT message to Blip Chat.
-        sendToBlipChat(gptMessage);
-
-        // 🔄 **Loop for subsequent cycles (10 cycles ≈ 20 messages exchanged)**
-        const maxCycles = 10;
-        for (let i = 1; i < maxCycles; i++) {
-          const blipResponse = await waitForBlipResponse();
-          conversationHistory.push({ role: "user", content: blipResponse });
-          gptMessage = await getGPTResponse(conversationHistory, openAiApiKey);
+        try {
+          let gptMessage = await getGPTResponse(conversationHistory, openAiApiKey);
           conversationHistory.push({ role: "assistant", content: gptMessage });
+          // Send GPT message to Blip Chat.
           sendToBlipChat(gptMessage);
+
+          // 🔄 **Loop for subsequent cycles (10 cycles ≈ 20 messages exchanged)**
+          const maxCycles = 10;
+          for (let i = 1; i < maxCycles; i++) {
+            const blipResponse = await waitForBlipResponse();
+            conversationHistory.push({ role: "user", content: blipResponse });
+            gptMessage = await getGPTResponse(conversationHistory, openAiApiKey);
+            conversationHistory.push({ role: "assistant", content: gptMessage });
+            sendToBlipChat(gptMessage);
+          }
+        } catch (err) {
+          alert(err.message);
         }
       }
 
