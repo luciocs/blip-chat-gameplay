@@ -1,0 +1,64 @@
+/* Base styles */
+body {
+font-family: sans-serif;
+background: #f4f7f9;
+margin: 0;
+padding: 20px;
+color: #333;
+}
+.container {
+max-width: 700px;
+margin: 0 auto;
+background: #fff;
+padding: 20px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+border-radius: 8px;
+}
+h1 {
+text-align: center;
+color: #009ee0; /* Blip's blue */
+}
+label {
+display: block;
+font-weight: bold;
+margin-bottom: 5px;
+}
+input[type="text"],
+input[type="password"],
+textarea {
+width: 100%;
+box-sizing: border-box;
+font-size: 16px;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+margin-bottom: 15px;
+}
+button {
+background: #009ee0; /* Blip's blue */
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 4px;
+cursor: pointer;
+}
+button:hover {
+background: #007aa3;
+}
+#conversation {
+border: 1px solid #ccc;
+padding: 10px;
+height: 400px;
+overflow-y: auto;
+margin-top: 10px;
+background: #fafafa;
+border-radius: 4px;
+}
+.message {
+margin: 5px 0;
+padding: 5px;
+}
+.message strong {
+margin-right: 5px;
+}
