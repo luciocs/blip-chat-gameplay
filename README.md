@@ -34,7 +34,7 @@ Key features include:
    git clone <repository_url>
    cd <repository_directory>
 2.	**Open the Demo:**
-   - Open the index.html file in your web browser.
+   - Open the `index.html` file in your web browser. The page loads its styles from `style.css` and its logic from `script.js`.
 3.	**Enter the Required Inputs:**
 	 - Blip Chat AppKey: The key used to initialize the Blip Chat widget. Determs the Intelligent Contact to be used. A default value is provided.
 	 - OpenAI API Key: Your personal API key for OpenAI’s GPT-4 API. This field is intentionally blank by default for security.
